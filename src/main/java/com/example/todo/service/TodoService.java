@@ -40,4 +40,12 @@ public class TodoService {
         todoRepository.save(todo);
         return todo;
     }
+
+    public Boolean deleteTodo(Long id){
+        if(todoRepository.findById(id).isPresent()){
+            todoRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
