@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: todo
+  datasource:
+    url: jdbc:mysql://localhost:3306/todo?useSSL=false&serverTimezone=UTC
+    username: todo
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
