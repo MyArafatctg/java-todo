@@ -3,6 +3,7 @@ package com.example.todo.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -25,7 +26,8 @@ public class Todo {
     @Column(name = "completed")
     private Boolean completed = false;
 
-    @Column(name = "create_at")
+    @CreationTimestamp
+    @Column(name = "create_at", insertable = false, updatable = false)
     private Timestamp create_at;
 
 }
