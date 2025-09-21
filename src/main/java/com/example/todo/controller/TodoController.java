@@ -4,6 +4,7 @@ import com.example.todo.dto.TodoDto;
 import com.example.todo.entity.Todo;
 import com.example.todo.repository.TodoRepository;
 import com.example.todo.service.TodoService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,9 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<Todo> createTodo(@RequestBody TodoDto todoDto){
+    public ResponseEntity<Todo> createTodo(
+            @Valid @RequestBody TodoDto todoDto
+    ){
         var todo = todoService.createTodo(todoDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(todo);
     }
