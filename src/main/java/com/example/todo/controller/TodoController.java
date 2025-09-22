@@ -1,5 +1,6 @@
 package com.example.todo.controller;
 
+import com.example.todo.dto.StatusRequest;
 import com.example.todo.dto.TodoDto;
 import com.example.todo.entity.Todo;
 import com.example.todo.repository.TodoRepository;
@@ -41,12 +42,22 @@ public class TodoController {
     @PutMapping("/{id}")
     public ResponseEntity<TodoDto> updateTodo(
             @PathVariable(name = "id") Long id,
-            @RequestBody TodoDto todoDto)
+            @Valid @RequestBody TodoDto todoDto)
     {
         var todo = todoService.updateTodo(id, todoDto);
         if (todo != null){
             return ResponseEntity.ok(todoDto);
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Void> updateStatus(
+            @PathVariable(name = "id") Long id,
+            @Valid @RequestBody StatusRequest status
+    ){
+        if(todoService.updateTodoStatus(id, status))
+            return ResponseEntity.ok().build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 

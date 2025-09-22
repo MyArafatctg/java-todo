@@ -1,5 +1,6 @@
 package com.example.todo.service;
 
+import com.example.todo.dto.StatusRequest;
 import com.example.todo.dto.TodoDto;
 import com.example.todo.entity.Todo;
 import com.example.todo.mapper.TodoMapper;
@@ -39,6 +40,17 @@ public class TodoService {
         todo.setDescription(todoDto.getDescription());
         todoRepository.save(todo);
         return todo;
+    }
+
+    public Boolean updateTodoStatus(Long id, StatusRequest status){
+        var todo = todoRepository.findById(id).orElse(null);
+        if(todo == null){
+            return false;
+        }
+
+        todo.setCompleted(status.getStatus());
+        todoRepository.save(todo);
+        return true;
     }
 
     public Boolean deleteTodo(Long id){
